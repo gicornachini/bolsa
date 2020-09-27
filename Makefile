@@ -40,19 +40,24 @@ lint: check-imports check-flake8 check-mypy ## Check PEP8 https://www.python.org
 update-requirements:
 	$(PIPENV_RUN) pip freeze > requirements.txt
 
+update-changelog:
+	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
+
 release-patch:
+	$(update-changelog)
 	$(update-requirements)
 	$(PIPENV_RUN) bumpversion patch
 
 release-minor:
+	$(update-changelog)
 	$(update-requirements)
 	$(PIPENV_RUN) bumpversion minor
 
 release-major:
+	$(update-changelog)
 	$(update-requirements)
 	$(PIPENV_RUN) bumpversion major
 
 deploy-release: ## Deploy next release.
-	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
 	$(PIPENV_RUN) python setup.py bdist_wheel
 	$(PIPENV_RUN) python -m twine upload dist/*
