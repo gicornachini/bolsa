@@ -1,6 +1,6 @@
 PIPENV_RUN = pipenv run
 
-VERSION := 0.0.1
+VERSION := 0.0.2
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
@@ -44,19 +44,16 @@ update-changelog:
 	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
 
 release-patch:
-	$(update-changelog)
-	$(update-requirements)
 	$(PIPENV_RUN) bumpversion patch
+	$(update-changelog)
 
 release-minor:
-	$(update-changelog)
-	$(update-requirements)
 	$(PIPENV_RUN) bumpversion minor
+	$(update-changelog)
 
 release-major:
-	$(update-changelog)
-	$(update-requirements)
 	$(PIPENV_RUN) bumpversion major
+	$(update-changelog)
 
 deploy-release: ## Deploy next release.
 	$(PIPENV_RUN) python setup.py bdist_wheel
