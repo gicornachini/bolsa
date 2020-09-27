@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+isort = "~=5.5.3"
+mypy = "~=0.782"
+flake8 = "~=3.8.3"
+pytest-aiohttp = "~=0.3.0"
+setuptools = "*"
+wheel = "*"
+tqdm = "*"
+twine = "*"
+
+[packages]
+aiohttp = "~=3.6.2"
+cchardet = "~=2.1.6"
+aiodns = "~=2.0.0"
+beautifulsoup4 = "~=4.9.2"
+
+[requires]
+python_version = "3.8.2"
