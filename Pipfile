@@ -12,6 +12,8 @@ setuptools = "*"
 wheel = "*"
 tqdm = "*"
 twine = "*"
+gitchangelog = "*"
+bump2version = "*"
 
 [packages]
 aiohttp = "~=3.6.2"

@@ -6,6 +6,7 @@ autopep8==1.5.4
 beautifulsoup4==4.9.2
 bleach==3.2.1
 bolsa @ file:///Users/giovannicornachini/ProjetosAsyncIO/bolsa/dist/bolsa-0.0.1-py3-none-any.whl
+bump2version==1.0.0
 cchardet==2.1.6
 certifi==2020.6.20
 cffi==1.14.3
@@ -13,6 +14,7 @@ chardet==3.0.4
 colorama==0.4.3
 docutils==0.16
 flake8==3.8.3
+gitchangelog==3.0.4
 idna==2.10
 iniconfig==1.0.1
 isort==5.5.3

@@ -1,5 +1,7 @@
 PIPENV_RUN = pipenv run
 
+VERSION := 0.0.0
+
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
@@ -35,7 +37,22 @@ check-mypy: ## Check mypy.
 
 lint: check-imports check-flake8 check-mypy ## Check PEP8 https://www.python.org/dev/peps/pep-0008/.
 
-deploy-release: ## Build next release.
+update-requirements:
 	$(PIPENV_RUN) pip freeze > requirements.txt
+
+release-patch:
+	$(update-requirements)
+	$(PIPENV_RUN) bumpversion patch
+
+release-minor:
+	$(update-requirements)
+	$(PIPENV_RUN) bumpversion minor
+
+release-major:
+	$(update-requirements)
+	$(PIPENV_RUN) bumpversion major
+
+deploy-release: ## Deploy next release.
+	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
 	$(PIPENV_RUN) python setup.py bdist_wheel
 	$(PIPENV_RUN) python -m twine upload dist/*

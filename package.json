@@ -1,0 +1,7 @@
+{
+    "name": "bolsa",
+    "version": "0.0.1",
+    "scripts": {
+        "release": "standard-version"
+    }
+}
