@@ -1,6 +1,8 @@
 # Bolsa - Acesse facilmente seus investimentos na B3/CEI
 Biblioteca feita em python com o objetivo de facilitar o acesso a dados de seus investimentos na bolsa de valores(B3/CEI).
 
+![image](https://i.imgur.com/TBpVWm3.png)
+
 # Requisitos
  - Python 3.8.x
 
