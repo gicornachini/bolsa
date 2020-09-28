@@ -11,9 +11,15 @@ class B3HttpClient():
     SESSION = None
     LOGIN_URL = 'https://cei.b3.com.br/CEI_Responsivo/login.aspx'
 
-    ASSETS_HOME_URL = 'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
-    BROKERS_ACCOUNT_URL = 'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
-    ASSETS_URL = 'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+    ASSETS_HOME_URL = (
+        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+    )
+    BROKERS_ACCOUNT_URL = (
+        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+    )
+    ASSETS_URL = (
+        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+    )
 
     def __init__(self, username, password, session):
         self.username = username
@@ -22,12 +28,21 @@ class B3HttpClient():
 
     async def login(self):
         payload = {
-            'ctl00$ContentPlaceHolder1$smLoad': 'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHolder1$btnLogar',
+            'ctl00$ContentPlaceHolder1$smLoad': (
+                'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHold'
+                'er1$btnLogar'
+            ),
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
-            '__VIEWSTATE': '/wEPDwUKMTc3NDI2MTA1OA9kFgJmD2QWAgIDD2QWAgIBD2QWAgIIDxYCHgdWaXNpYmxlaGRk7P4AjuBFTAmTPK6r/26AJZjS3WI=',
+            '__VIEWSTATE': (
+                '/wEPDwUKMTc3NDI2MTA1OA9kFgJmD2QWAgIDD2QWAgIBD2QWAgIIDxYCHgdWa'
+                'XNpYmxlaGRk7P4AjuBFTAmTPK6r/26AJZjS3WI='
+            ),
             '__VIEWSTATEGENERATOR': '803C878C',
-            '__EVENTVALIDATION': '/wEdAASpMZlRQVEkIJsV6kw/uC9KdHQiWNJPAzoojF2W6rb9pVH0ZHo6j+VFVNKHCgI4S+fS7Ixw1xxNt6QIpIQNh+THL5njjjIDpf92JIAZu/Tu1Az5Buc=',
+            '__EVENTVALIDATION': (
+                '/wEdAASpMZlRQVEkIJsV6kw/uC9KdHQiWNJPAzoojF2W6rb9pVH0ZHo6j+VFV'
+                'NKHCgI4S+fS7Ixw1xxNt6QIpIQNh+THL5njjjIDpf92JIAZu/Tu1Az5Buc='
+            ),
             'ctl00$ContentPlaceHolder1$txtLogin': self.username,
             'ctl00$ContentPlaceHolder1$txtSenha': self.password,
             '__ASYNCPOST': True,
@@ -74,8 +89,8 @@ class B3HttpClient():
 
         payload = {
             'ctl00$ContentPlaceHolder1$ToolkitScriptManager1': (
-                'ctl00$ContentPlaceHolder1$updFiltro|ctl00$ContentPlaceHolder1$'
-                'ddlAgentes'
+                'ctl00$ContentPlaceHolder1$updFiltro|ctl00$ContentPlaceHolder1'
+                '$ddlAgentes'
             ),
             '__EVENTTARGET': 'ctl00$ContentPlaceHolder1$ddlAgentes',
             '__VIEWSTATE': (
@@ -111,7 +126,10 @@ class B3HttpClient():
         }
         headers = {
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Referer': 'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx',
+            'Referer': (
+                'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.asp'
+                'x'
+            ),
             'Origin': 'https://cei.b3.com.br',
             'User-Agent': (
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) '
@@ -147,10 +165,15 @@ class B3HttpClient():
         end_date = broker_parse_extra_data.end_date
 
         payload = {
-            'ctl00$ContentPlaceHolder1$ToolkitScriptManager1': 'ctl00$ContentPlaceHolder1$updFiltro|ctl00$ContentPlaceHolder1$btnConsultar',
+            'ctl00$ContentPlaceHolder1$ToolkitScriptManager1': (
+                'ctl00$ContentPlaceHolder1$updFiltro|ctl00$ContentPlaceHolder1'
+                '$btnConsultar'
+            ),
             '__EVENTTARGET': '',
             '__VIEWSTATE': account_parse_extra_data.view_state,
-            '__VIEWSTATEGENERATOR': account_parse_extra_data.view_state_generator,
+            '__VIEWSTATEGENERATOR': (
+                account_parse_extra_data.view_state_generator
+            ),
             '__EVENTVALIDATION': account_parse_extra_data.event_validation,
             'ctl00$ContentPlaceHolder1$ddlAgentes': broker_value,
             'ctl00$ContentPlaceHolder1$ddlContas': account_id,
@@ -161,7 +184,10 @@ class B3HttpClient():
 
         headers = {
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Referer': 'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx',
+            'Referer': (
+                'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.as'
+                'px'
+            ),
             'Origin': 'https://cei.b3.com.br',
             'User-Agent': (
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) '

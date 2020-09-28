@@ -107,8 +107,9 @@ class GetBrokerAccountAssetExtractResponse:
         table_body = assets_table.find('tbody')
         rows = table_body.find_all('tr')
         for row in rows:
-            operation_date, action, market_type, _, raw_negotiation_code, asset_specification, unit_amount, unit_price, total_price, quotation_factor = row.find_all(
-                'td')
+            operation_date, action, market_type, _, raw_negotiation_code, asset_specification, unit_amount, unit_price, total_price, quotation_factor = row.find_all(  # NOQA
+                'td'
+            )
             asset_extract = BrokerAssetExtract(
                 operation_date=operation_date.get_text(strip=True),
                 action=action.get_text(strip=True),
