@@ -43,17 +43,14 @@ update-requirements:
 update-changelog:
 	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
 
-release-patch:
+release-patch: update-changelog
 	$(PIPENV_RUN) bumpversion patch
-	$(update-changelog)
 
-release-minor:
+release-minor: update-changelog
 	$(PIPENV_RUN) bumpversion minor
-	$(update-changelog)
 
-release-major:
+release-major: update-changelog
 	$(PIPENV_RUN) bumpversion major
-	$(update-changelog)
 
 deploy-release: ## Deploy next release.
 	$(PIPENV_RUN) python setup.py bdist_wheel
