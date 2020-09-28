@@ -99,6 +99,7 @@ class B3AsyncBackend():
                 account_parse_extra_data=broker.accounts[0].parse_extra_data
             )
             for broker in brokers
+            if len(broker.accounts) > 0
         ]
 
         return await asyncio.gather(*brokers_account_assets_extract_routine)

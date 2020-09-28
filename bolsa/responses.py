@@ -59,6 +59,9 @@ class GetBrokerAccountResponse():
     def _parse_get_accounts(self, html):
         soup = BeautifulSoup(html, 'html.parser')
         brokers_select = soup.find('select', id=self.ACCOUNT_SELECT_ID)
+        if not brokers_select:
+            return []
+
         brokers_option = brokers_select.find_all('option')
 
         view_state = soup.find(id='__VIEWSTATE')['value']
