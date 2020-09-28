@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.0.3 (2020-09-28)
+------------------
+- Bump version: 0.0.2 → 0.0.3. [Giovanni Cornachini]
+- Chore: fix pep8 warnings. [Giovanni Cornachini]
+
+
 0.0.2 (2020-09-27)
 ------------------
 
