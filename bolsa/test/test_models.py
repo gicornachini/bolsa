@@ -46,3 +46,11 @@ class TestBrokerAssetExtract:
         )
 
         assert broker_asset_extract == expected_obj
+
+    async def test_format_string_to_decimal_with_high_value(self):
+        expected_value = Decimal('1485.12')
+        unit_price = '1.485.12'
+
+        value = BrokerAssetExtract._format_string_to_decimal(unit_price)
+
+        assert value == expected_value

@@ -110,7 +110,7 @@ class GetBrokerAccountAssetExtractResponse:
             operation_date, action, market_type, _, raw_negotiation_code, asset_specification, unit_amount, unit_price, total_price, quotation_factor = row.find_all(  # NOQA
                 'td'
             )
-            asset_extract = BrokerAssetExtract(
+            asset_extract = BrokerAssetExtract.create_from_response_fields(
                 operation_date=operation_date.get_text(strip=True),
                 action=action.get_text(strip=True),
                 market_type=market_type.get_text(strip=True),

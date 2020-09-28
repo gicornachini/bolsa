@@ -68,8 +68,8 @@ class BrokerAssetExtract():
         action = ASSET_ACTION_TYPE_MAPPER[action]
         market_type = ASSET_MARKET_TYPE_MAPPER[market_type]
         operation_date = datetime.strptime(operation_date, '%d/%m/%Y').date()
-        total_price = Decimal(total_price.replace(',', '.'))
-        unit_price = Decimal(unit_price.replace(',', '.'))
+        total_price = cls._format_string_to_decimal(total_price)
+        unit_price = cls._format_string_to_decimal(unit_price)
         unit_amount = int(unit_amount)
         quotation_factor = int(quotation_factor)
 
@@ -84,3 +84,9 @@ class BrokerAssetExtract():
             total_price=total_price,
             quotation_factor=quotation_factor
         )
+
+    @staticmethod
+    def _format_string_to_decimal(value):
+        value = value.replace(',', '').replace('.', '')
+        value = f'{value[:-2]}.{value[-2:]}'
+        return Decimal(value)
