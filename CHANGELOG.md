@@ -7,10 +7,20 @@ Changelog
 
 Fix
 ~~~
+- Parse decimal value from asset extract. [Giovanni Cornachini]
+
+
+0.0.5 (2020-09-28)
+------------------
+
+Fix
+~~~
 - Add correct packages dynamycally. [Giovanni Cornachini]
 
 Other
 ~~~~~
+- Bump version: 0.0.4 → 0.0.5. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 - Bump version: 0.0.3 → 0.0.4. [Giovanni Cornachini]
 
 
