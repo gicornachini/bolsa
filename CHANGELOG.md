@@ -4,6 +4,14 @@ Changelog
 
 [NEXT RELEASE]
 --------------
+
+Fix
+~~~
+- When broker does not have account. [Giovanni Cornachini]
+
+Other
+~~~~~
+- Docs: Update changelog. [Giovanni Cornachini]
 - Bump version: 0.0.5 → 0.0.6. [Giovanni Cornachini]
 
 
