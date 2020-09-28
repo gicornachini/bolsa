@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-[NEXT RELEASE]
---------------
+0.0.7 (2020-09-28)
+------------------
 
 Fix
 ~~~
@@ -11,6 +11,8 @@ Fix
 
 Other
 ~~~~~
+- Bump version: 0.0.6 → 0.0.7. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 - Docs: Update changelog. [Giovanni Cornachini]
 - Bump version: 0.0.5 → 0.0.6. [Giovanni Cornachini]
 
