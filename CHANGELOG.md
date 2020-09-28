@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+[NEXT RELEASE]
+--------------
+
+Fix
+~~~
+- Add correct packages dynamycally. [Giovanni Cornachini]
+
+Other
+~~~~~
+- Bump version: 0.0.3 → 0.0.4. [Giovanni Cornachini]
+
+
 0.0.4 (2020-09-28)
 ------------------
 

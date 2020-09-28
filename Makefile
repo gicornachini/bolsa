@@ -42,6 +42,8 @@ update-requirements:
 
 update-changelog:
 	$(PIPENV_RUN) gitchangelog > CHANGELOG.md
+	@git add .
+	@git commit -m "docs: Update changelog"
 
 release-patch: update-changelog
 	$(PIPENV_RUN) bumpversion patch
