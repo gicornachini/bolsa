@@ -9,7 +9,7 @@ logging.basicConfig(
         '%(message)s'
     ),
     datefmt='%Y-%m-%d,%H:%M:%S',
-    level=logging.INFO
+    level=logging.DEBUG
 )
 
 

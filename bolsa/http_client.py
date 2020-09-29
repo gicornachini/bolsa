@@ -8,6 +8,7 @@ POOL_CONNECTOR = B3HttpClientConnector()
 
 
 class B3HttpClient():
+    IS_LOGGED = False
     SESSION = None
     LOGIN_URL = 'https://cei.b3.com.br/CEI_Responsivo/login.aspx'
 
@@ -67,10 +68,15 @@ class B3HttpClient():
             headers=headers,
         ) as response:
             logger.info(f'B3HttpClient login done - username: {self.username}')
+
+            self.IS_LOGGED = True
+
             return await response.text()
 
     async def get_brokers(self):
-        await self.login()
+        if not self.IS_LOGGED:
+            await self.login()
+
         logger.info(
             f'B3HttpClient getting brokers - username: {self.username}'
         )
@@ -83,6 +89,9 @@ class B3HttpClient():
         return response
 
     async def get_broker_accounts(self, broker):
+        if not self.IS_LOGGED:
+            await self.login()
+
         default_account = '0'
         start_date = broker.parse_extra_data.start_date
         end_date = broker.parse_extra_data.end_date
@@ -161,6 +170,9 @@ class B3HttpClient():
         broker_parse_extra_data,
         account_parse_extra_data
     ):
+        if not self.IS_LOGGED:
+            await self.login()
+
         start_date = broker_parse_extra_data.start_date
         end_date = broker_parse_extra_data.end_date
 

@@ -1,3 +1,5 @@
+import logging
+
 from bs4 import BeautifulSoup
 
 from bolsa.models import (
@@ -7,6 +9,8 @@ from bolsa.models import (
     BrokerAssetExtract,
     BrokerParseExtraData
 )
+
+logger = logging.getLogger(__name__)
 
 
 class GetBrokersResponse():
@@ -104,6 +108,11 @@ class GetBrokerAccountAssetExtractResponse:
         soup = BeautifulSoup(html, 'html.parser')
         assets_table = soup.find(id=self.ASSETS_TABLE_ID)
 
+        logger.debug(
+            f'GetBrokerAccountAssetExtractResponse start parsing asset extract'
+            f' - broker value: {self.broker_value}'
+        )
+
         if not assets_table:
             return assets_extract
 
@@ -125,5 +134,10 @@ class GetBrokerAccountAssetExtractResponse:
                 quotation_factor=quotation_factor.get_text(strip=True)
             )
             assets_extract.append(asset_extract)
+
+        logger.debug(
+            f'GetBrokerAccountAssetExtractResponse end parsing asset extract '
+            f'- broker value: {self.broker_value}'
+        )
 
         return assets_extract
