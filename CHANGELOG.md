@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-[NEXT RELEASE]
---------------
+0.0.8 (2020-09-29)
+------------------
 
 Feat
 ~~~~
@@ -11,8 +11,9 @@ Feat
 
 Other
 ~~~~~
-- Docs: improve readme models information. [Giovanni Cornachini]
+- Bump version: 0.0.7 → 0.0.8. [Giovanni Cornachini]
 - Docs: Update changelog. [Giovanni Cornachini]
+- Docs: improve readme models information. [Giovanni Cornachini]
 
 
 0.0.7 (2020-09-28)
