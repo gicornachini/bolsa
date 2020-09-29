@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+[NEXT RELEASE]
+--------------
+
+Feat
+~~~~
+- Feat: login improvement. [Giovanni Cornachini]
+
+Other
+~~~~~
+- Docs: improve readme models information. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
+
+
 0.0.7 (2020-09-28)
 ------------------
 
