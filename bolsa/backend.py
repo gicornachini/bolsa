@@ -19,10 +19,11 @@ POOL_CONNECTOR = B3HttpClientConnector()
 
 class B3AsyncBackend():
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, api_key):
         self._connector = POOL_CONNECTOR.get_connector()
         self.username = username
         self.password = password
+        self.api_key = api_key
 
     @cached_property
     def _session(self):
@@ -37,7 +38,8 @@ class B3AsyncBackend():
         return B3HttpClient(
             username=self.username,
             password=self.password,
-            session=self._session
+            session=self._session,
+            api_key=self.api_key
         )
 
     async def session_close(self):

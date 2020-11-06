@@ -16,10 +16,11 @@ gitchangelog = "~=3.0.4"
 bump2version = "~=1.0.0"
 
 [packages]
-aiohttp = "~=3.6.2"
+aiohttp = "~=3.7.2"
 cchardet = "~=2.1.6"
 aiodns = "~=2.0.0"
 beautifulsoup4 = "~=4.9.2"
+2captcha-python = "~=1.0.3"
 
 [requires]
 python_version = "3.8.2"
