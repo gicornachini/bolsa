@@ -1,6 +1,8 @@
 import logging
 
 from bolsa.connector import B3HttpClientConnector
+from twocaptcha import TwoCaptcha
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
@@ -22,33 +24,50 @@ class B3HttpClient():
         'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
     )
 
-    def __init__(self, username, password, session):
+    def __init__(self, username, password, session, api_key):
         self.username = username
         self.password = password
         self.session = session
+        self.api_key = api_key
+
+    async def resolvepayload(self):
+        async with self.session.get(
+            self.LOGIN_URL
+        ) as response:
+            loginPageContent = await response.text()
+            loginPageParsed = BeautifulSoup(loginPageContent, "html.parser")
+            view_state = loginPageParsed.find(id='__VIEWSTATE')['value']
+            viewstate_generator = loginPageParsed.find(id='__VIEWSTATEGENERATOR')['value']
+            event_validation = loginPageParsed.find(id='__EVENTVALIDATION')['value']
+            site_key = loginPageParsed.find(id='ctl00_ContentPlaceHolder1_dvCaptcha').get('data-sitekey')
+
+            solver = TwoCaptcha(self.api_key)
+            try:
+                captcha_solution = solver.recaptcha(sitekey=site_key, url=self.LOGIN_URL)
+            except Exception as e:
+                raise ValueError('captcha não pode ser resolvido')
+
+            return {
+                'ctl00$ContentPlaceHolder1$smLoad': (
+                    'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHold'
+                    'er1$btnLogar'
+                ),
+                '__EVENTTARGET': '',
+                '__EVENTARGUMENT': '',
+                "__VIEWSTATEGENERATOR": viewstate_generator,
+                "__EVENTVALIDATION": event_validation,
+                "__VIEWSTATE": view_state,
+                'ctl00$ContentPlaceHolder1$txtLogin': self.username,
+                'ctl00$ContentPlaceHolder1$txtSenha': self.password,
+                '__ASYNCPOST': True,
+                "g-recaptcha-response": captcha_solution['code'],
+                'ctl00$ContentPlaceHolder1$btnLogar': 'Entrar'
+            }
 
     async def login(self):
-        payload = {
-            'ctl00$ContentPlaceHolder1$smLoad': (
-                'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHold'
-                'er1$btnLogar'
-            ),
-            '__EVENTTARGET': '',
-            '__EVENTARGUMENT': '',
-            '__VIEWSTATE': (
-                '/wEPDwUKMTc3NDI2MTA1OA9kFgJmD2QWAgIDD2QWAgIBD2QWAgIIDxYCHgdWa'
-                'XNpYmxlaGRk7P4AjuBFTAmTPK6r/26AJZjS3WI='
-            ),
-            '__VIEWSTATEGENERATOR': '803C878C',
-            '__EVENTVALIDATION': (
-                '/wEdAASpMZlRQVEkIJsV6kw/uC9KdHQiWNJPAzoojF2W6rb9pVH0ZHo6j+VFV'
-                'NKHCgI4S+fS7Ixw1xxNt6QIpIQNh+THL5njjjIDpf92JIAZu/Tu1Az5Buc='
-            ),
-            'ctl00$ContentPlaceHolder1$txtLogin': self.username,
-            'ctl00$ContentPlaceHolder1$txtSenha': self.password,
-            '__ASYNCPOST': True,
-            'ctl00$ContentPlaceHolder1$btnLogar': 'Entrar'
-        }
+
+        payload = await self.resolvepayload()
+
         headers = {
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Referer': 'https://cei.b3.com.br/CEI_Responsivo/login.aspx',
