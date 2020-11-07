@@ -1,7 +1,6 @@
 import logging
 
 from bolsa.connector import B3HttpClientConnector
-from twocaptcha import TwoCaptcha
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
@@ -24,11 +23,11 @@ class B3HttpClient():
         'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
     )
 
-    def __init__(self, username, password, session, api_key):
+    def __init__(self, username, password, session, captcha_service):
         self.username = username
         self.password = password
         self.session = session
-        self.api_key = api_key
+        self.captcha_service = captcha_service
 
     async def resolvepayload(self):
         async with self.session.get(
@@ -66,7 +65,37 @@ class B3HttpClient():
 
     async def login(self):
 
-        payload = await self.resolvepayload()
+        async with self.session.get(
+            self.LOGIN_URL
+        ) as response:
+            loginPageContent = await response.text()
+            loginPageParsed = BeautifulSoup(loginPageContent, "html.parser")
+            view_state = loginPageParsed.find(id='__VIEWSTATE')['value']
+            viewstate_generator = loginPageParsed.find(id='__VIEWSTATEGENERATOR')['value']
+            event_validation = loginPageParsed.find(id='__EVENTVALIDATION')['value']
+            site_key = loginPageParsed.find(id='ctl00_ContentPlaceHolder1_dvCaptcha').get('data-sitekey')
+            try:
+                solvedcaptcha = await self.captcha_service.resolve(site_key, self.LOGIN_URL)
+            except Exception as error:
+                raise ValueError('captcha não pode ser resolvido')
+
+
+        payload = {
+            'ctl00$ContentPlaceHolder1$smLoad': (
+                'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHold'
+                'er1$btnLogar'
+            ),
+            '__EVENTTARGET': '',
+            '__EVENTARGUMENT': '',
+            '__VIEWSTATEGENERATOR': viewstate_generator,
+            '__EVENTVALIDATION': event_validation,
+            '__VIEWSTATE': view_state,
+            'ctl00$ContentPlaceHolder1$txtLogin': self.username,
+            'ctl00$ContentPlaceHolder1$txtSenha': self.password,
+            '__ASYNCPOST': True,
+            'g-recaptcha-response': solvedcaptcha,
+            'ctl00$ContentPlaceHolder1$btnLogar': 'Entrar'
+        }
 
         headers = {
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
