@@ -1,6 +1,7 @@
 from twocaptcha import TwoCaptcha
 from twocaptcha.api import ApiException
 from bolsa.captcha.CaptchaResolverServiceInterface import CaptchaResolverServiceInterface
+from bolsa.captcha.exceptions.CaptchaResolverException import CaptchaResolverException
 
 class TwoCaptchaResolverService(CaptchaResolverServiceInterface):
 
@@ -13,7 +14,5 @@ class TwoCaptchaResolverService(CaptchaResolverServiceInterface):
         try:
             solvedcaptcha = solver.recaptcha(site_key, url)
         except ApiException as error:
-            raise error
-        except Exception as e:
-            raise ValueError('captcha não pode ser resolvido')
+            raise CaptchaResolverException(f'Erro ao tentar resolver captcha: {e}')
         return solvedcaptcha['code']
