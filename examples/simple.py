@@ -1,6 +1,7 @@
 import asyncio
 import logging
 
+from bolsa.captcha.services.TwoCaptchaResolverService import TwoCaptchaResolverService
 from bolsa import B3AsyncBackend
 
 logging.basicConfig(
@@ -12,15 +13,16 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 
-
 async def main():
     from datetime import datetime
     start_datetime = datetime.now()
     logging.info(f'Starting... {start_datetime}')
+    resolver = TwoCaptchaResolverService(
+        credential='SUA CHAVE DA API')
     b3_httpclient = B3AsyncBackend(
         username='SEU CPF/CNPJ',
         password='SUA SENHA',
-        api_key="SUA API DO 2CAPTCHA.COM"
+        captcha_service=resolver
     )
     brokers = await b3_httpclient.get_brokers_with_accounts()
     assets_extract = (
