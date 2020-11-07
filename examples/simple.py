@@ -18,7 +18,8 @@ async def main():
     start_datetime = datetime.now()
     logging.info(f'Starting... {start_datetime}')
     resolver = TwoCaptchaResolverService(
-        credential='SUA CHAVE DA API')
+        credential='SUA CHAVE DA API'
+    )
     b3_httpclient = B3AsyncBackend(
         username='SEU CPF/CNPJ',
         password='SUA SENHA',

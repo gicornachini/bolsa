@@ -29,42 +29,7 @@ class B3HttpClient():
         self.session = session
         self.captcha_service = captcha_service
 
-    async def resolvepayload(self):
-        async with self.session.get(
-            self.LOGIN_URL
-        ) as response:
-            loginPageContent = await response.text()
-            loginPageParsed = BeautifulSoup(loginPageContent, "html.parser")
-            view_state = loginPageParsed.find(id='__VIEWSTATE')['value']
-            viewstate_generator = loginPageParsed.find(id='__VIEWSTATEGENERATOR')['value']
-            event_validation = loginPageParsed.find(id='__EVENTVALIDATION')['value']
-            site_key = loginPageParsed.find(id='ctl00_ContentPlaceHolder1_dvCaptcha').get('data-sitekey')
-
-            solver = TwoCaptcha(self.api_key)
-            try:
-                captcha_solution = solver.recaptcha(sitekey=site_key, url=self.LOGIN_URL)
-            except Exception as e:
-                raise ValueError('captcha não pode ser resolvido')
-
-            return {
-                'ctl00$ContentPlaceHolder1$smLoad': (
-                    'ctl00$ContentPlaceHolder1$UpdatePanel1|ctl00$ContentPlaceHold'
-                    'er1$btnLogar'
-                ),
-                '__EVENTTARGET': '',
-                '__EVENTARGUMENT': '',
-                "__VIEWSTATEGENERATOR": viewstate_generator,
-                "__EVENTVALIDATION": event_validation,
-                "__VIEWSTATE": view_state,
-                'ctl00$ContentPlaceHolder1$txtLogin': self.username,
-                'ctl00$ContentPlaceHolder1$txtSenha': self.password,
-                '__ASYNCPOST': True,
-                "g-recaptcha-response": captcha_solution['code'],
-                'ctl00$ContentPlaceHolder1$btnLogar': 'Entrar'
-            }
-
     async def login(self):
-
         async with self.session.get(
             self.LOGIN_URL
         ) as response:
@@ -73,12 +38,12 @@ class B3HttpClient():
             view_state = loginPageParsed.find(id='__VIEWSTATE')['value']
             viewstate_generator = loginPageParsed.find(id='__VIEWSTATEGENERATOR')['value']
             event_validation = loginPageParsed.find(id='__EVENTVALIDATION')['value']
-            site_key = loginPageParsed.find(id='ctl00_ContentPlaceHolder1_dvCaptcha').get('data-sitekey')
-            try:
-                solvedcaptcha = await self.captcha_service.resolve(site_key, self.LOGIN_URL)
-            except Exception as error:
-                raise ValueError('captcha não pode ser resolvido')
-
+            site_key = loginPageParsed.find(
+                id='ctl00_ContentPlaceHolder1_dvCaptcha'
+            ).get(
+                'data-sitekey'
+            )
+            solvedcaptcha = await self.captcha_service.resolve(site_key, self.LOGIN_URL)
 
         payload = {
             'ctl00$ContentPlaceHolder1$smLoad': (
