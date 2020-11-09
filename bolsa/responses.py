@@ -30,9 +30,11 @@ class GetBrokersResponse():
         brokers_option = brokers_select.find_all('option')
 
         start_date = soup.find(
-            id='ctl00_ContentPlaceHolder1_txtDataDeBolsa')['value']
+            id='ctl00_ContentPlaceHolder1_txtDataDeBolsa'
+        )['value']
         end_date = soup.find(
-            id='ctl00_ContentPlaceHolder1_txtDataAteBolsa')['value']
+            id='ctl00_ContentPlaceHolder1_txtDataAteBolsa'
+        )['value']
 
         return [
             Broker(

@@ -1,8 +1,10 @@
 import asyncio
 import logging
 
-from bolsa.captcha.services.TwoCaptchaResolverService import TwoCaptchaResolverService
 from bolsa import B3AsyncBackend
+from bolsa.captcha.services.TwoCaptchaResolverService import (
+    TwoCaptchaResolverService
+)
 
 logging.basicConfig(
     format=(
@@ -12,6 +14,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d,%H:%M:%S',
     level=logging.DEBUG
 )
+
 
 async def main():
     from datetime import datetime

@@ -1,7 +1,8 @@
 import logging
 
-from bolsa.connector import B3HttpClientConnector
 from bs4 import BeautifulSoup
+
+from bolsa.connector import B3HttpClientConnector
 
 logger = logging.getLogger(__name__)
 
@@ -36,14 +37,21 @@ class B3HttpClient():
             loginPageContent = await response.text()
             loginPageParsed = BeautifulSoup(loginPageContent, "html.parser")
             view_state = loginPageParsed.find(id='__VIEWSTATE')['value']
-            viewstate_generator = loginPageParsed.find(id='__VIEWSTATEGENERATOR')['value']
-            event_validation = loginPageParsed.find(id='__EVENTVALIDATION')['value']
+            viewstate_generator = loginPageParsed.find(
+                id='__VIEWSTATEGENERATOR'
+            )['value']
+            event_validation = loginPageParsed.find(
+                id='__EVENTVALIDATION'
+            )['value']
             site_key = loginPageParsed.find(
                 id='ctl00_ContentPlaceHolder1_dvCaptcha'
             ).get(
                 'data-sitekey'
             )
-            solvedcaptcha = await self.captcha_service.resolve(site_key, self.LOGIN_URL)
+            solvedcaptcha = await self.captcha_service.resolve(
+                site_key,
+                self.LOGIN_URL
+            )
 
         payload = {
             'ctl00$ContentPlaceHolder1$smLoad': (
@@ -66,11 +74,12 @@ class B3HttpClient():
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Referer': 'https://cei.b3.com.br/CEI_Responsivo/login.aspx',
             'Origin': 'https://cei.b3.com.br',
+            'Host': 'cei.b3.com.br',
             'User-Agent': (
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) '
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) '
                 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 '
                 'Safari/537.36'
-            )
+            ),
         }
 
         logger.info(f'B3HttpClient doing login - username: {self.username}')
