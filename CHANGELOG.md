@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+[NEXT RELEASE]
+--------------
+
+Fix
+~~~
+- Captcha message error and improve logging. [Giovanni Cornachini]
+
+Other
+~~~~~
+- Perf: improve performance scheduling tasks before await all requests.
+  [Giovanni Cornachini]
+- Chore: fix import order and lint. [Giovanni Cornachini]
+- Captcha resolver `2captcha` - fix custom exception. [Adler Dias]
+- Captcha resolver `2captcha` - add custom exception. [Adler Dias]
+- Refactor captcha resolver `2captcha` [Adler Dias]
+- Adicionado suporte ao 2captcha. [Adler Dias]
+- Docs: Update changelog. [Giovanni Cornachini]
+
+
 0.0.8 (2020-09-29)
 ------------------
 
@@ -14,6 +33,7 @@ Other
 - Bump version: 0.0.7 → 0.0.8. [Giovanni Cornachini]
 - Docs: Update changelog. [Giovanni Cornachini]
 - Docs: improve readme models information. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 
 
 0.0.7 (2020-09-28)
