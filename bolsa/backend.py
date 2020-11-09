@@ -66,7 +66,9 @@ class B3AsyncBackend():
     async def get_brokers_with_accounts(self):
         brokers = await self.get_brokers()
         brokers_account_routine = [
-            self.get_broker_accounts(broker)
+            asyncio.create_task(
+                self.get_broker_accounts(broker)
+            )
             for broker in brokers
         ]
 
@@ -94,11 +96,15 @@ class B3AsyncBackend():
 
     async def get_brokers_account_portfolio_assets_extract(self, brokers):
         brokers_account_assets_extract_routine = [
-            self.get_broker_account_portfolio_assets_extract(
-                account_id=broker.accounts[0].id,
-                broker_value=broker.value,
-                broker_parse_extra_data=broker.parse_extra_data,
-                account_parse_extra_data=broker.accounts[0].parse_extra_data
+            asyncio.create_task(
+                self.get_broker_account_portfolio_assets_extract(
+                    account_id=broker.accounts[0].id,
+                    broker_value=broker.value,
+                    broker_parse_extra_data=broker.parse_extra_data,
+                    account_parse_extra_data=(
+                        broker.accounts[0].parse_extra_data
+                    )
+                )
             )
             for broker in brokers
             if len(broker.accounts) > 0
