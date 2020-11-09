@@ -18,10 +18,19 @@ Atualmente implementado usando [Asyncio](https://docs.python.org/3/library/async
 Veja como é simples utilizar:
 ```python
 from bolsa import B3AsyncBackend
+from bolsa.captcha.services.TwoCaptchaResolverService import (
+    TwoCaptchaResolverService
+)
+
+
+captcha_resolver = TwoCaptchaResolverService(
+    credential='SUA CHAVE DA API'
+)
 
 b3_httpclient = B3AsyncBackend(
     username='SEU CPF/CNPJ',
-    password='SUA SENHA'
+    password='SUA SENHA',
+    captcha_service=captcha_resolver
 )
 brokers = await b3_httpclient.get_brokers_with_accounts()
 assets_extract = (

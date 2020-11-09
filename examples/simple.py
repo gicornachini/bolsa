@@ -20,13 +20,13 @@ async def main():
     from datetime import datetime
     start_datetime = datetime.now()
     logging.info(f'Starting... {start_datetime}')
-    resolver = TwoCaptchaResolverService(
+    captcha_resolver = TwoCaptchaResolverService(
         credential='SUA CHAVE DA API'
     )
     b3_httpclient = B3AsyncBackend(
         username='SEU CPF/CNPJ',
         password='SUA SENHA',
-        captcha_service=resolver
+        captcha_service=captcha_resolver
     )
     brokers = await b3_httpclient.get_brokers_with_accounts()
     assets_extract = (
