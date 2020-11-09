@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-[NEXT RELEASE]
---------------
+1.0.0 (2020-11-09)
+------------------
 
 Fix
 ~~~
@@ -11,6 +11,8 @@ Fix
 
 Other
 ~~~~~
+- Bump version: 0.0.8 → 1.0.0. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 - Perf: improve performance scheduling tasks before await all requests.
   [Giovanni Cornachini]
 - Chore: fix import order and lint. [Giovanni Cornachini]
