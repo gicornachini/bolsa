@@ -2,8 +2,10 @@ Changelog
 =========
 
 
-[NEXT RELEASE]
---------------
+2.0.0 (2020-11-28)
+------------------
+- Bump version: 1.0.0 → 2.0.0. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 - Feat/remove-support-to-captcha-resolver. [Giovanni Cornachini]
 - Docs: update examples. [Giovanni Cornachini]
 - Docs: update README. [Giovanni Cornachini]
