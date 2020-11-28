@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+[NEXT RELEASE]
+--------------
+- Feat/remove-support-to-captcha-resolver. [Giovanni Cornachini]
+- Docs: update examples. [Giovanni Cornachini]
+- Docs: update README. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
+
+
 1.0.0 (2020-11-09)
 ------------------
 
