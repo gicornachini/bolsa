@@ -1,7 +1,5 @@
-# Bolsa - Acesse facilmente seus investimentos na B3/CEI (Com suporte a recaptcha resolver)
+# Bolsa - Acesse facilmente seus investimentos na B3/CEI
 Biblioteca feita em python com o objetivo de facilitar o acesso a dados de seus investimentos na bolsa de valores(B3/CEI).
-
->A partir do dia 06/11/2020 a `B3` adicionou etapa de [ReCaptcha](https://www.google.com/recaptcha/about/) no login, portanto para acessar aos dados do `CEI` de forma automatizada será necessário utilizar algum serviço resolvedor de captcha. Atualmente estamos suportando o [2captcha](https://2captcha.com/). Caso queira utilizar outro resolver, basta adicionar um novo service de captcha resolver abrindo um PR. Sua contribuição será bem vinda!
 
 ![image](https://i.imgur.com/TBpVWm3.png)
 
@@ -18,19 +16,11 @@ Atualmente implementado usando [Asyncio](https://docs.python.org/3/library/async
 Veja como é simples utilizar:
 ```python
 from bolsa import B3AsyncBackend
-from bolsa.captcha.services.TwoCaptchaResolverService import (
-    TwoCaptchaResolverService
-)
 
-
-captcha_resolver = TwoCaptchaResolverService(
-    credential='SUA CHAVE DA API'
-)
 
 b3_httpclient = B3AsyncBackend(
     username='SEU CPF/CNPJ',
-    password='SUA SENHA',
-    captcha_service=captcha_resolver
+    password='SUA SENHA'
 )
 brokers = await b3_httpclient.get_brokers_with_accounts()
 assets_extract = (

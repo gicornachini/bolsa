@@ -12,16 +12,16 @@ POOL_CONNECTOR = B3HttpClientConnector()
 class B3HttpClient():
     IS_LOGGED = False
     SESSION = None
-    LOGIN_URL = 'https://cei.b3.com.br/CEI_Responsivo/login.aspx'
+    LOGIN_URL = 'https://ceiapp.b3.com.br/CEI_Responsivo/login.aspx'
 
     ASSETS_HOME_URL = (
-        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+        'https://ceiapp.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
     )
     BROKERS_ACCOUNT_URL = (
-        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+        'https://ceiapp.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
     )
     ASSETS_URL = (
-        'https://cei.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
+        'https://ceiapp.b3.com.br/CEI_Responsivo/negociacao-de-ativos.aspx'
     )
 
     def __init__(self, username, password, session, captcha_service):
@@ -43,15 +43,18 @@ class B3HttpClient():
             event_validation = loginPageParsed.find(
                 id='__EVENTVALIDATION'
             )['value']
-            site_key = loginPageParsed.find(
-                id='ctl00_ContentPlaceHolder1_dvCaptcha'
-            ).get(
-                'data-sitekey'
-            )
-            solvedcaptcha = await self.captcha_service.resolve(
-                site_key,
-                self.LOGIN_URL
-            )
+
+            solvedcaptcha = None
+            if self.captcha_service:
+                site_key = loginPageParsed.find(
+                    id='ctl00_ContentPlaceHolder1_dvCaptcha'
+                ).get(
+                    'data-sitekey'
+                )
+                solvedcaptcha = await self.captcha_service.resolve(
+                    site_key,
+                    self.LOGIN_URL
+                )
 
         payload = {
             'ctl00$ContentPlaceHolder1$smLoad': (
