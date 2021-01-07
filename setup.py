@@ -11,14 +11,14 @@ with open('README.md', 'r') as fh:
 install_requires = [
     'aiohttp>=3.6.2,<4.0.0',
     'cchardet>=2.1.6',
-    'aiodns>=2.0.0',
+    'aiodns>=2.0.1',
     'beautifulsoup4>=4.9.2',
 ]
 
 
 setuptools.setup(
     name='bolsa',
-    version='2.0.0',
+    version='2.0.1',
     packages=setuptools.find_packages(),
     python_requires='>=3.8.*',
     author='Giovanni Cornachini',
