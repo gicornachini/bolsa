@@ -19,7 +19,8 @@ async def main():
     logging.info(f'Starting... {start_datetime}')
     b3_httpclient = B3AsyncBackend(
         username='SEU CPF/CNPJ',
-        password='SUA SENHA'
+        password='SUA SENHA',
+        captcha_service=None  # captcha_service is not required yet
     )
     brokers = await b3_httpclient.get_brokers_with_accounts()
     assets_extract = (

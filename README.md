@@ -20,15 +20,19 @@ from bolsa import B3AsyncBackend
 
 b3_httpclient = B3AsyncBackend(
     username='SEU CPF/CNPJ',
-    password='SUA SENHA'
+    password='SUA SENHA',
+    captcha_service=None  # `captcha_service` não é obrigatório ainda
 )
+
 brokers = await b3_httpclient.get_brokers_with_accounts()
 assets_extract = (
     await b3_httpclient.get_brokers_account_portfolio_assets_extract(
         brokers=brokers
     )
 )
-print(assets_extract) # Todos seus ativos consolidados no CEI
+
+print(assets_extract) # Todos os seus ativos consolidados no CEI
+
 await b3_httpclient.session_close()
 await b3_httpclient.connection_close()
 ```
