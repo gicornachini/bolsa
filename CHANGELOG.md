@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+[NEXT RELEASE]
+--------------
+- Docs: improve documentation and example. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
+
+
 2.0.0 (2020-11-28)
 ------------------
 - Bump version: 1.0.0 → 2.0.0. [Giovanni Cornachini]
