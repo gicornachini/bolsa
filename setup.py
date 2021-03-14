@@ -11,7 +11,7 @@ with open('README.md', 'r') as fh:
 install_requires = [
     'aiohttp>=3.6.2,<4.0.0',
     'cchardet>=2.1.6',
-    'aiodns>=2.0.1',
+    'aiodns>=2.0.0',
     'beautifulsoup4>=4.9.2',
 ]
 
