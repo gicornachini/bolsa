@@ -5,6 +5,18 @@ Changelog
 [NEXT RELEASE]
 --------------
 
+
+2.0.3 (2021-01-07)
+------------------
+
+Fix
+- Bump version: 2.0.2 → 2.0.3. [Pedro Lucas Lima]
+- Docs: Update changelog. [Pedro Lucas Lima]
+~~~
+- Adding enums for options operations. [Pedro Lucas Lima] 
+~~~
+
+
 Fix
 ~~~
 - Aiodns version from setup.py. [Giovanni Cornachini]
