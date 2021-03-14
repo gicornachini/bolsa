@@ -4,6 +4,16 @@ Changelog
 
 [NEXT RELEASE]
 --------------
+
+Fix
+~~~
+- Aiodns version from setup.py. [Giovanni Cornachini]
+
+
+2.0.1 (2021-01-07)
+------------------
+- Bump version: 2.0.0 → 2.0.1. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 - Docs: improve documentation and example. [Giovanni Cornachini]
 - Docs: Update changelog. [Giovanni Cornachini]
 
