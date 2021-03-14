@@ -18,7 +18,7 @@ install_requires = [
 
 setuptools.setup(
     name='bolsa',
-    version='2.0.1',
+    version='2.0.2',
     packages=setuptools.find_packages(),
     python_requires='>=3.8.*',
     author='Giovanni Cornachini',
