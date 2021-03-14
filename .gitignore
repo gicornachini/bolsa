@@ -144,3 +144,7 @@ dmypy.json
 main.py
 
 .vscode/*
+
+.DS_Store
+.idea/
+

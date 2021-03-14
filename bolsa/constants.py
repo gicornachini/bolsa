@@ -20,5 +20,8 @@ ASSET_ACTION_TYPE_MAPPER = {
 
 ASSET_MARKET_TYPE_MAPPER = {
     'Merc. Fracionário': BrokerAssetExtractMarketType.FRACTIONAL.value,
-    'Mercado a Vista': BrokerAssetExtractMarketType.UNIT.value
+    'Mercado a Vista': BrokerAssetExtractMarketType.UNIT.value,
+    'Opção de Compra': BrokerAssetExtractMarketType.UNIT.value,
+    'Opção de Venda': BrokerAssetExtractMarketType.UNIT.value,
+    'Exercicio de Opções': BrokerAssetExtractMarketType.UNIT.value
 }
