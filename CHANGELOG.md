@@ -5,9 +5,22 @@ Changelog
 [NEXT RELEASE]
 --------------
 
+Feat
+~~~~
+- Feat: add enum to options market. [Djonathan Krause]
+
+
+2.0.2 (2021-03-14)
+------------------
+
 Fix
 ~~~
 - Aiodns version from setup.py. [Giovanni Cornachini]
+
+Other
+~~~~~
+- Bump version: 2.0.1 → 2.0.2. [Giovanni Cornachini]
+- Docs: Update changelog. [Giovanni Cornachini]
 
 
 2.0.1 (2021-01-07)
