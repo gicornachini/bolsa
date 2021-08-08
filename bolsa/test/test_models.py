@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from decimal import Decimal
 
 import pytest
@@ -7,13 +7,9 @@ from bolsa.constants import (
     BrokerAssetExtractAction,
     BrokerAssetExtractMarketType,
     PassiveIncomeEventType,
-    PassiveIncomeType
+    PassiveIncomeType,
 )
-from bolsa.models import (
-    BrokerAssetExtract,
-    PassiveIncome,
-    _format_string_to_decimal
-)
+from bolsa.models import BrokerAssetExtract, PassiveIncome, _format_string_to_decimal
 
 
 class TestBrokerAssetExtract:
