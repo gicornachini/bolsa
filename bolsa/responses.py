@@ -12,7 +12,7 @@ from bolsa.models import (
     BrokerAccountParseExtraData,
     BrokerAssetExtract,
     BrokerParseExtraData,
-    PassiveIncome
+    PassiveIncome,
 )
 
 logger = logging.getLogger(__name__)
@@ -26,18 +26,18 @@ class _BrokerResponseBase:
         self.response = response
 
     @staticmethod
-    def _get_date_input_ids() -> Tuple[str, str]:
+    async def _get_date_input_ids() -> Tuple[str, str]:
         raise NotImplementedError()
 
     async def data(self) -> List[Broker]:
         html = await self.response.text()
-        return self._parse_brokers(html)
+        return await self._parse_brokers(html)
 
-    def _parse_brokers(self, html: str) -> List[Broker]:
+    async def _parse_brokers(self, html: str) -> List[Broker]:
         soup = BeautifulSoup(html, "html.parser")
         brokers_select = soup.find("select", id=self.BROKERS_SELECT_ID)
         brokers_option = brokers_select.find_all("option")
-        start_date_id, end_date_id = self._get_date_input_ids()
+        start_date_id, end_date_id = await self._get_date_input_ids()
         start_date = soup.find(id=start_date_id).text
         end_date = soup.find(id=end_date_id).text
 
@@ -54,7 +54,7 @@ class _BrokerResponseBase:
 
 class BrokerAssetsResponse(_BrokerResponseBase):
     @staticmethod
-    def _get_date_input_ids() -> Tuple[str, str]:
+    async def _get_date_input_ids() -> Tuple[str, str]:
         start_date_id = "ctl00_ContentPlaceHolder1_lblPeriodoInicialBolsa"
         end_date_id = "ctl00_ContentPlaceHolder1_lblPeriodoFinalBolsa"
         return start_date_id, end_date_id
@@ -62,7 +62,7 @@ class BrokerAssetsResponse(_BrokerResponseBase):
 
 class BrokerPassiveIncomesResponse(_BrokerResponseBase):
     @staticmethod
-    def _get_date_input_ids() -> Tuple[str, str]:
+    async def _get_date_input_ids() -> Tuple[str, str]:
         start_date_id = "ctl00_ContentPlaceHolder1_lblPeriodoInicial"
         end_date_id = "ctl00_ContentPlaceHolder1_lblPeriodoFinal"
         return start_date_id, end_date_id
