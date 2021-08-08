@@ -1,8 +1,9 @@
 import logging
 from datetime import date, datetime
-from typing import Union
+from typing import Any, Dict, Union
 from urllib.parse import urljoin, urlparse
 
+from aiohttp import ClientSession
 from aiohttp.client_reqrep import ClientResponse
 from bs4 import BeautifulSoup
 
@@ -21,20 +22,27 @@ class B3HttpClient:
     LOGIN_URL = "https://ceiapp.b3.com.br/CEI_Responsivo/login.aspx"
     _HEADERS_ORIGIN_URL = "https://cei.b3.com.br"
 
-    def __init__(self, username, password, session, captcha_service, base_url):
+    def __init__(
+        self,
+        username: str,
+        password: str,
+        session: ClientSession,
+        captcha_service: Any,
+        base_url: str,
+    ) -> None:
         self.username = username
         self.password = password
         self.session = session
         self.captcha_service = captcha_service
         self.base_url = base_url
 
-    def _get_referer(self):
+    async def _get_referer(self) -> str:
         return urljoin(self._HEADERS_ORIGIN_URL, urlparse(self.base_url).path)
 
-    def _get_headers(self):
+    async def _get_headers(self) -> Dict[str, str]:
         return {
             "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Referer": self._get_referer(),
+            "Referer": await self._get_referer(),
             "Origin": self._HEADERS_ORIGIN_URL,
             "User-Agent": (
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) "
@@ -43,7 +51,7 @@ class B3HttpClient:
             ),
         }
 
-    async def login(self):
+    async def login(self) -> bool:
         async with self.session.get(self.LOGIN_URL) as response:
             loginPageContent = await response.text()
             loginPageParsed = BeautifulSoup(loginPageContent, "html.parser")
@@ -101,13 +109,15 @@ class B3HttpClient:
             data=payload,
             headers=headers,
         ) as response:
+            wrong_credentials_text = "Usuário/Senha/Código de verificação inválido(a)"
+            if wrong_credentials_text in await response.text():
+                raise B3UnableToLoginException(wrong_credentials_text)
+
             logger.info(f"B3HttpClient login done - username: {self.username}")
-
             self.IS_LOGGED = True
+            return self.IS_LOGGED
 
-            return await response.text()
-
-    async def get_brokers(self):
+    async def get_brokers(self) -> ClientResponse:
         if not self.IS_LOGGED:
             await self.login()
 
@@ -118,12 +128,14 @@ class B3HttpClient:
 
         return response
 
-    async def get_broker_accounts(self, payload):
+    async def get_broker_accounts(
+        self, payload: Dict[str, Union[str, bool]]
+    ) -> ClientResponse:
         if not self.IS_LOGGED:
             await self.login()
 
         return await self.session.post(
-            self.base_url, data=payload, headers=self._get_headers()
+            self.base_url, data=payload, headers=await self._get_headers()
         )
 
     async def get_broker_account_portfolio_assets_extract(
@@ -132,7 +144,7 @@ class B3HttpClient:
         account: BrokerAccount,
         start_date: Union[date, None] = None,
         end_date: Union[date, None] = None,
-    ):
+    ) -> ClientResponse:
         if not self.IS_LOGGED:
             await self.login()
 
@@ -172,7 +184,7 @@ class B3HttpClient:
         )
 
         response = await self.session.post(
-            self.base_url, data=payload, headers=self._get_headers()
+            self.base_url, data=payload, headers=await self._get_headers()
         )
         logger.info(
             f"B3HttpClient end getting broker account extract portfolio - "
@@ -220,5 +232,5 @@ class B3HttpClient:
         }
 
         return await self.session.post(
-            self.base_url, data=payload, headers=self._get_headers()
+            self.base_url, data=payload, headers=await self._get_headers()
         )
