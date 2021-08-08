@@ -8,13 +8,18 @@ from aiohttp import ClientSession
 from aiohttp.connector import TCPConnector
 
 from bolsa.http_client import B3HttpClient
-from bolsa.models import Broker, BrokerAccount, BrokerAssetExtract, PassiveIncome
+from bolsa.models import (
+    Broker,
+    BrokerAccount,
+    BrokerAssetExtract,
+    PassiveIncome
+)
 from bolsa.responses import (
     BrokerAccountAssetExtractResponse,
     BrokerAccountResponse,
     BrokerAssetsResponse,
     BrokerPassiveIncomesResponse,
-    PassiveIncomesResponse,
+    PassiveIncomesResponse
 )
 
 logger = logging.getLogger(__name__)

@@ -14,7 +14,7 @@ from bolsa.constants import (
     BrokerAssetExtractAction,
     BrokerAssetExtractMarketType,
     PassiveIncomeEventType,
-    PassiveIncomeType,
+    PassiveIncomeType
 )
 
 

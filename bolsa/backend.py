@@ -5,7 +5,12 @@ from typing import Any, Dict, List, Union
 
 from bolsa.connector import B3HttpClientConnector
 from bolsa.crawlers import AssetsCrawler, PassiveIncomesCrawler
-from bolsa.models import Broker, BrokerAccount, BrokerAssetExtract, PassiveIncome
+from bolsa.models import (
+    Broker,
+    BrokerAccount,
+    BrokerAssetExtract,
+    PassiveIncome
+)
 
 logger = logging.getLogger(__name__)
 

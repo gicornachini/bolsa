@@ -1,6 +1,6 @@
 import logging
 import re
-from typing import Any, Dict, Iterator, List, Tuple, Union
+from typing import Any, AsyncGenerator, Dict, List, Tuple, Union
 
 from aiohttp.client_reqrep import ClientResponse
 from bs4 import BeautifulSoup
@@ -12,7 +12,7 @@ from bolsa.models import (
     BrokerAccountParseExtraData,
     BrokerAssetExtract,
     BrokerParseExtraData,
-    PassiveIncome,
+    PassiveIncome
 )
 
 logger = logging.getLogger(__name__)
@@ -167,7 +167,7 @@ class BrokerAccountAssetExtractResponse:
             f"- broker value: {self.broker_value}"
         )
 
-        return assets_extract
+        return assets_extract  # type: ignore
 
 
 class PassiveIncomesResponse:
@@ -189,7 +189,7 @@ class PassiveIncomesResponse:
     @staticmethod
     async def _parse_passive_incomes(
         table: Tag, income_type: str
-    ) -> Iterator[PassiveIncome]:
+    ) -> AsyncGenerator[PassiveIncome, None]:
         for row in table.find_all("tr"):
             (
                 raw_negotiation_name,
@@ -251,4 +251,4 @@ class PassiveIncomesResponse:
                         passive_income.__dict__ if as_dict else passive_income
                     )
 
-        return passive_incomes
+        return passive_incomes  # type: ignore
